@@ -1,0 +1,297 @@
+#Projet verification du résultat d'un produit  
+#Khayoussef Mohamed
+#Exercice 1
+
+NEW "EXO1" 1
+START @Start
+END @YES "VALID"
+UNDEFINED @NO "INVALID"
+FROM @Start
+'1 R
+'= R @Q1
+FROM @Q1
+'1 'X R @Q2
+'x R @Q10
+FROM @Q2
+'1 R
+'x R @Q3
+FROM @Q3
+'1 'Y R @Q4
+'# L @Q8
+FROM @Q4
+'1 R
+'_ '# R @Q5
+'# R @Q7
+FROM @Q5
+'_ '1 L @Q6
+'1 R
+FROM @Q6
+'1|'# L
+'Y R @Q3
+FROM @Q7
+'1 R @Q5
+FROM @Q8
+'Y '1 L
+'x L @Q9
+FROM @Q9
+'1 L
+'X R @Q1
+FROM @Q10
+'1|'# R
+'_ L @Q11
+FROM @Q11
+'1 'G L @Q12
+'# L @Q16
+FROM @Q12
+'1|'#|'x|'X L
+'= L @Q13
+FROM @Q13
+'1 'G R @Q14
+'G L 
+FROM @Q14
+'1|'x|'=|'X|'G R
+'# R @Q15
+FROM @Q15
+'1 R
+'G L @Q11
+FROM @Q16
+'1|'x|'X L
+'= L @Q17
+FROM @Q17
+'G L
+'_ R @YES
+
+#Exercice 2
+
+NEW "EXO2" 3
+START @Start
+END @YES "VALID"
+UNDEFINED @NO "INVALID"
+FROM @Start
+'=,'_,'_ '_,'_,'_ R,S,L @Q1
+'1,'_,'_ '_,'_,'1 R,S,R
+FROM @Q1
+'x,'_,'1 '_,'_,'1 R,L,S @Q2
+'1,'_,'_|'1 '_,'1,'_ R,R,L
+FROM @Q2
+'1,'1,'1 '_,'1,'1 R,S,S @Q3
+FROM @Q3
+'1,'_,'1 '_,'_,'1 R,R,S @Q4
+'1,'_,'_ S,R,S @Q6
+'1,'1,'1 '1,'1,'_ S,L,L
+FROM @Q4
+'1,'_,'1 S,L,S @Q5
+'1,'_,'_ '1,'_,'_ S,L,S @Q6
+'1,'1,'1 '1,'1,'_ S,R,L
+FROM @Q5
+'1,'1,'1 '_,'1,'1 R,S,S @Q3
+FROM @Q6
+'_,'1,'_ '_,'_,'_ R,R,S
+'1,'1,'_ '_,'_,'_ R,R,S
+'_,'_,'_ S,S,S @YES   
+
+#Exercice 3
+
+NEW "EXO3" 3
+START @Start
+END @YES "VALID"
+UNDEFINED @NO "INVALID"
+FROM @Start
+'_,'_,'_ '_,'_,'_ L,S,S @Q1
+'1|'0|'=|'x,'_,'_ '1|'0|'=|'x,'_,'_ R,S,S
+
+FROM @Q1
+'0,'_,'_|'d '_,'_,'_|'d L,S,S@Q4
+'1,'_,'_|'d '_,'_,'_|'d L,S,S @Q3
+
+FROM @Q2
+'_,'_,'_|'d L,S,S @Q1
+'1,'_,'_|'d R,S,S
+'0,'_,'_|'d R,S,S
+
+FROM @Q3
+'=,'_,'_|'d '=,'_,'_|'d R,S,S @Q5
+'1|'0|'x,'_,'d L,S,S
+'1|'0|'x,'_,'_ L,S,S
+
+FROM @Q4
+'=,'_,'_|'d '=,'_,'_|'d R,S,S @Q6
+'1|'0|'x,'_,'d L,S,S
+'1|'0|'x,'_,'_ L,S,S
+
+FROM @Q5
+'x,'_,'d 'x,'0,'d S,S,L @Sum
+'1|'0,'_,'d '1|'0,'1|'0,'d R,R,S
+'1|'0,'_,'_ '1|'0,'1|'0,'_ R,R,S
+'x,'_,'_ 'x,'+,'d R,R,S @Q7
+
+FROM @Q6
+'x,'_,'_ 'x,'+,'d R,R,S @Q7
+'x,'_,'d 'x,'0,'d S,S,L @Sum
+'1|'0,'_,'d '1|'0,'0,'d R,R,S
+'1|'0,'_,'_ '1|'0,'0,'_ R,R,S
+
+FROM @Q7
+'_,'_,'d  L,S,S @Q1
+'1|'0,'_,'d R,S,S
+
+FROM @Sum 
+'x,'1|'0,'Y S,S,L
+'x,'1|'0,'D S,R,S @Q19
+'x,'0,'_ 'x,'X,'_ S,L,S @Q8
+'x,'1,'_ 'x,'X,'_ S,L,S @Q9
+'x,'X,'_ S,L,S
+'x,'+,'_ S,L,S @EndSum
+
+FROM @EndSum
+'x,'1,'_ 'x,'X,'1 R,S,S @Q15 
+'x,'_,'_ 'x,'_,'_ R,R,S @Q15
+'x,'X,'_ S,L,S
+
+FROM @Q8
+'x,'+,'_ S,L,S @Q10
+'x,'1|'0,'_ S,L,S
+
+FROM @Q9
+'x,'+,'_ S,L,S @Q11
+'x,'1|'0,'_ S,L,S
+
+FROM @Q10
+'x,'1,'_ 'x,'X,'1 S,L,L @Q12
+'x,'_,'_ 'x,'_,'0 S,S,L @Q12
+'x,'0,'_ 'x,'X,'0 S,L,L @Q12
+'x,'X,'_ S,L,S
+
+FROM @Q11
+'x,'_,'_ 'x,'_,'1 S,S,L @Q12
+'x,'0,'_ 'x,'X,'1 S,L,L @Q12
+'x,'1,'_ 'x,'X,'0 S,L,L @Q14 
+'x,'X,'_ S,L,S
+
+FROM @Q12
+'x,'_,'_ S,R,S @Q13
+'x,'0|'1,'_ S,L,S
+
+FROM @Q13
+'x,'_,'_ S,L,S @Sum
+'x,'1|'0|'X|'+,'_ S,R,S
+
+FROM @Q14
+'x,'0,'_ 'x,'1,'_ S,S,S @Q12
+'x,'_,'_ 'x,'1,'_ S,S,S @Q12
+'x,'1,'_ 'x,'0,'_ S,L,S
+
+FROM @Q15
+'1|'0,'+,'_ '1|'0,'_,'D S,R,S @Q16
+'1|'0,'X,'_ '1|'0,'_,'_ S,R,S
+'_,'X,'1|'_|'0 L,S,S @Q21 
+ 
+FROM @Q16
+'1|'0,'_,'D S,L,R @Q17
+'1|'0,'X,'D '1|'0,'_,'D S,R,S
+
+
+FROM @Q17 
+'1|'0,'_,'_ '1|'0,'+,'_ S,R,L @Q2
+'1|'0,'_,'D '1|'0,'+,'D S,R,R @Q18
+'1|'0,'_,'d S,S,R
+'1|'0,'_,'1 '1|'0,'1,'Y S,R,R
+'1|'0,'_,'0 '1|'0,'0,'Y S,R,R
+
+FROM @Q18
+'1|'0,'_,'d S,S,S @Q2
+'1|'0,'_,'D S,S,R
+'1|'0,'_,'Y S,S,R
+
+
+FROM @Q19 
+'x,'_,'_ S,L,S @Sum
+'x,'_,'Y S,L,L @Q20
+'x,'_,'D 'x,'0,'D S,R,L
+
+FROM @Q20
+'x,'0,'D S,R,S @Q19
+'x,'0,'Y S,S,L
+
+FROM @Q21
+'=,'X,'_ '_,'X,'_ L,S,S @Q22
+'x|'1|'0,'X,'_ '_,'X,'_ L,S,S
+'=,'X,'1|'0 '_,'X,'1|'0 L,S,S @Q22
+'x|'1|'0,'X,'1 '_,'X,'1 L,S,S
+'x|'1|'0,'X,'0 '_,'X,'1 L,S,S
+
+FROM @Q22
+'1|'0,'X,'d '1|'0,'_,'_ S,R,L @Comparison
+'1|'0,'X,'1 S,S,R
+'1|'0,'X,'_ S,S,R
+'1|'0,'X,'0 S,S,R
+'1|'0,'X,'D S,S,L @Comparison
+
+#Compare the result
+FROM @Comparison 
+'0,'X|'+|'_,'0 '_,'_,'_ L,R,L
+'1,'X|'+|'_,'1 '_,'_,'_ L,R,L
+'_,'_,'D|'Y|'d '_,'_,'_ S,S,R
+'_,'X|'+,'_ '_,'_,'_ S,R,R
+'_,'X|'+,'D '_,'_,'_ S,R,R
+'_,'X|'+,'Y '_,'_,'_ S,R,R
+'_,'X|'+,'d '_,'_,'_ S,R,R
+'1|'0,'X,'D '_,'_,'_ S,S,L
+'1|'0,'+,'D '_,'_,'_ S,S,L
+'1|'0,'X,'Y '_,'_,'_ S,S,L
+'1|'0,'+,'Y '_,'_,'_ S,S,L
+'_,'_,'_ S,S,S @YES
+
+
+#Exercice 5
+
+NEW "EXO5" 1
+START @Start
+END @YES "VALID"
+UNDEFINED @NO "INVALID"
+FROM @Start
+'_ L @Q1
+'1|'=|'x R
+FROM @Q1
+'x '_ L @Q8
+'1 '_ L @Q2
+FROM @Q2
+'1 '1 L
+'x L @Q3
+FROM @Q3
+'1 'Y L @Q4
+'Y|'x L
+'= '= R @Q7
+FROM @Q4
+'1 '1 L
+'= '= L @Q5
+FROM @Q5
+'1 'R R @Q6
+'R 'R L
+
+FROM @Q6
+'Y 'Y L @Q3
+'1|'= |'R |'x R
+FROM @Q7
+'_ L @Q1
+'Y '1 R
+'x|'1 R
+FROM @Q8
+'1|'=|'R '_ L
+'_ S @YES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
